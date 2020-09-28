@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Dashboard from './containers/Dashboard'
 import './App.scss'
 
 const App: React.FC = () => {
@@ -8,7 +9,7 @@ const App: React.FC = () => {
       <div className="app">
         <Switch>
           <Route path="/">
-            <h1>Hello, world!</h1>
+            <Dashboard />
           </Route>
         </Switch>
       </div>

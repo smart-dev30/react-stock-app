@@ -4,7 +4,7 @@ import { ActionModel } from '../../types/Models'
 
 export interface StateType {
   connected: boolean
-  stockData: object[]
+  stockData: any[]
 }
 
 let initialState: StateType = {
