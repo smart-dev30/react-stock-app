@@ -21,6 +21,7 @@ interface ContainerProps {
 
 export const Container: React.FC<ContainerProps> = ({ children }) => {
   const classes = useStyles()
+
   const [visible, setVisible] = React.useState(false)
 
   const toggleDrawer = (event: any) => {

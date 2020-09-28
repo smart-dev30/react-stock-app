@@ -13,6 +13,6 @@ export function websocketErrorThrown(): ActionModel {
   return { type: ActionType.WEBSOCKET_ERROR, payload: null }
 }
 
-export function stockDataReceived(payload: object[]): ActionModel {
+export function stockDataReceived(payload: any[]): ActionModel {
   return { type: ActionType.WEBSOCKET_RECEIVE, payload }
 }

@@ -1,24 +1,25 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
+
 import { Container } from '../components/Container'
-import { Typography } from '@material-ui/core'
+import { StockTable } from '../components/StockTable'
 
 import { StateType } from '../redux/reducers'
 
 const Dashboard: React.FC<StateType> = ({
   connected,
   stockData,
-}: StateType) => {
-  useEffect(() => {
-    console.log(JSON.stringify(stockData))
-  }, [connected, stockData])
+  stockTypes,
+}: StateType) => (
+  <Container>
+    <StockTable stockData={stockData} stockTypes={stockTypes} />
+  </Container>
+)
 
-  return <Container></Container>
-}
-
-const mapStateToProps = ({ connected, stockData }: StateType) => ({
+const mapStateToProps = ({ connected, stockData, stockTypes }: StateType) => ({
   connected,
   stockData,
+  stockTypes,
 })
 
 export default connect(mapStateToProps)(Dashboard)

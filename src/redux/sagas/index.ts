@@ -12,7 +12,7 @@ import {
 const createWebsocketChannel = (ws: ReconnectingWebSocket) =>
   eventChannel((emitter) => {
     ws.addEventListener('message', (message) => {
-      emitter(stockDataReceived(message.data))
+      emitter(stockDataReceived(JSON.parse(message.data)))
     })
 
     ws.addEventListener('open', () => {
