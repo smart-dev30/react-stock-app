@@ -1,5 +1,5 @@
 import { eventChannel } from 'redux-saga'
-import { take, call, put, fork, all } from 'redux-saga/effects'
+import { take, call, put } from 'redux-saga/effects'
 import ReconnectingWebSocket from 'reconnecting-websocket'
 
 import {
@@ -31,7 +31,7 @@ const createWebsocketChannel = (ws: ReconnectingWebSocket) =>
   })
 
 export default function* root() {
-  const url: string = process.env.WS_URL
+  const url: string = process.env.REACT_APP_WS_URL
   const ws = new ReconnectingWebSocket(url)
   const wsChannel = yield call(createWebsocketChannel, ws)
 

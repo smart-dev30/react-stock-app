@@ -24,7 +24,6 @@ function applicationState(state = initialState, action: ActionModel) {
       return { ...state, connected: false }
 
     case ActionType.WEBSOCKET_RECEIVE:
-      debugger
       const stockData = state.stockData
       return { ...state, stockData: [...stockData, action.payload] }
     default:
