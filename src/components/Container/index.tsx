@@ -16,10 +16,11 @@ import MenuIcon from '@material-ui/icons/Menu'
 import useStyles from './styles'
 
 interface ContainerProps {
+  status: boolean
   children: React.ReactNode
 }
 
-export const Container: React.FC<ContainerProps> = ({ children }) => {
+export const Container: React.FC<ContainerProps> = ({ children, status }) => {
   const classes = useStyles()
 
   const [visible, setVisible] = React.useState(false)
@@ -38,8 +39,11 @@ export const Container: React.FC<ContainerProps> = ({ children }) => {
       >
         <MenuIcon />
       </IconButton>
-      <Typography variant="h6" color="inherit" className={classes.grow}>
+      <Typography variant="h5" color="inherit" className={classes.grow}>
         {process.env.REACT_APP_TITLE}
+      </Typography>
+      <Typography variant="h6" color="inherit" className={classes.grow}>
+        {status ? 'Websocket Connected' : 'Connectiong Websocket...'}
       </Typography>
     </Toolbar>
   )

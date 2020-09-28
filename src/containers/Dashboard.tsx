@@ -11,7 +11,7 @@ const Dashboard: React.FC<StateType> = ({
   stockData,
   stockTypes,
 }: StateType) => (
-  <Container>
+  <Container status={connected}>
     <StockTable stockData={stockData} stockTypes={stockTypes} />
   </Container>
 )
