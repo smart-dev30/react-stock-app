@@ -1,23 +1,21 @@
-import React from 'react'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
+import React, { useState } from 'react'
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
+} from '@material-ui/core'
+import TimelineIcon from '@material-ui/icons/Timeline'
+import { Sparkline } from '../Sparkline'
 
 import moment from 'moment'
 
-import { useStyles, StyledTableRow, StyledTableCell } from './styles'
-import { IconButton } from '@material-ui/core'
-import TimelineIcon from '@material-ui/icons/Timeline'
-
 import { StockData } from '../../redux/reducers'
 
-interface TableProps {
-  stockData: any
-  stockTypes: string[]
-}
+import { useStyles, StyledTableRow, StyledTableCell } from './styles'
 
 interface StockInfo {
   number: number
@@ -26,6 +24,26 @@ interface StockInfo {
   lastPrice: string | number
   updateDate: object
   status: 0 | 1 | -1 // 0: same price, 1: risen, -1: fallen
+}
+
+export interface ChartData {
+  name: string
+  prices: number[]
+}
+
+const defaultChartData: ChartData = {
+  name: '',
+  prices: [],
+}
+
+interface TableProps {
+  stockData: any
+  stockTypes: string[]
+}
+
+interface TableStates {
+  chartData: ChartData
+  chartVisible: boolean
 }
 
 function createRow(
@@ -48,15 +66,25 @@ function createRow(
 
 export const StockTable: React.FC<TableProps> = ({ stockData, stockTypes }) => {
   const classes = useStyles()
-  if (stockTypes.length === 0) return null
+  const [chartData, setChartData] = useState(defaultChartData)
+  const [chartVisible, setChartVisible] = useState(false)
 
   const rowData: StockInfo[] = stockTypes.map((type, index) =>
     createRow(index, type, stockData[type]),
   )
   console.log(rowData)
 
-  const handleChartPress = (name: string) => () => {
-    alert(name)
+  const handleToggleChart = (name: string | null) => () => {
+    if (!name) {
+      setChartVisible(false)
+      return
+    }
+
+    setChartData({
+      name,
+      prices: stockData[name].prices,
+    })
+    setChartVisible(!chartVisible)
   }
 
   return (
@@ -74,44 +102,51 @@ export const StockTable: React.FC<TableProps> = ({ stockData, stockTypes }) => {
         </TableHead>
 
         <TableBody>
-          {rowData.map((row: StockInfo) => (
-            <StyledTableRow key={row.number}>
-              <StyledTableCell>{row.number}</StyledTableCell>
+          {stockTypes.length > 0 &&
+            rowData.map((row: StockInfo) => (
+              <StyledTableRow key={row.number}>
+                <StyledTableCell>{row.number}</StyledTableCell>
 
-              <StyledTableCell>{row.name}</StyledTableCell>
+                <StyledTableCell>{row.name}</StyledTableCell>
 
-              <StyledTableCell align="right">{row.lastPrice}</StyledTableCell>
+                <StyledTableCell align="right">{row.lastPrice}</StyledTableCell>
 
-              <StyledTableCell
-                align="right"
-                className={
-                  row.status === 1
-                    ? classes.raise
-                    : row.status === -1
-                    ? classes.fall
-                    : classes.normal
-                }
-              >
-                {row.currentPrice}
-              </StyledTableCell>
-
-              <StyledTableCell align="right">
-                {moment(row.updateDate).format('YYYY-MM-DD hh:mm:ss')}
-              </StyledTableCell>
-
-              <StyledTableCell align="right">
-                <IconButton
-                  color="inherit"
-                  aria-label="Show Chart"
-                  onClick={handleChartPress(row.name)}
+                <StyledTableCell
+                  align="right"
+                  className={
+                    row.status === 1
+                      ? classes.raise
+                      : row.status === -1
+                      ? classes.fall
+                      : classes.normal
+                  }
                 >
-                  <TimelineIcon />
-                </IconButton>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
+                  {row.currentPrice}
+                </StyledTableCell>
+
+                <StyledTableCell align="right">
+                  {moment(row.updateDate).format('YYYY-MM-DD hh:mm:ss')}
+                </StyledTableCell>
+
+                <StyledTableCell align="right">
+                  <IconButton
+                    color="inherit"
+                    aria-label="Show Chart"
+                    onClick={handleToggleChart(row.name)}
+                  >
+                    <TimelineIcon />
+                  </IconButton>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
         </TableBody>
       </Table>
+
+      <Sparkline
+        visible={chartVisible}
+        data={chartData}
+        onCancel={handleToggleChart(null)}
+      />
     </TableContainer>
   )
 }

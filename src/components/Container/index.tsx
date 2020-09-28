@@ -25,17 +25,18 @@ export const Container: React.FC<ContainerProps> = ({ children, status }) => {
 
   const [visible, setVisible] = React.useState(false)
 
-  const toggleDrawer = (event: any) => {
+  const handleToggleDrawer = (event: any) => {
     setVisible(!visible)
   }
+
+  const handleNavigate = () => {}
 
   const appBar = (
     <Toolbar>
       <IconButton
         color="inherit"
         aria-label="Menu"
-        onClick={toggleDrawer}
-        className={classes.menuButton}
+        onClick={handleToggleDrawer}
       >
         <MenuIcon />
       </IconButton>
@@ -52,14 +53,14 @@ export const Container: React.FC<ContainerProps> = ({ children, status }) => {
     <div className={classes.root}>
       <AppBar position="fixed">{appBar}</AppBar>
 
-      <Drawer open={visible} onClose={toggleDrawer}>
+      <Drawer open={visible} onClose={handleToggleDrawer}>
         <div
           className={classes.list}
           role="presentation"
-          onClick={toggleDrawer}
+          onClick={handleToggleDrawer}
         >
           <List>
-            <ListItem>
+            <ListItem onClick={handleNavigate}>
               <ListItemIcon>{<DashboardIcon />}</ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItem>
