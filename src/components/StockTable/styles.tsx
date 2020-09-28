@@ -19,10 +19,24 @@ const StyledTableRow = withStyles((theme: Theme) => ({
   },
 }))(TableRow)
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   table: {
-    minWidth: 700,
+    minWidth: 400,
   },
-})
+
+  raise: {
+    color: theme.palette.success.dark,
+    fontWeight: 'bold',
+  },
+
+  fall: {
+    color: theme.palette.error.dark,
+    fontWeight: 'bold',
+  },
+
+  normal: {
+    fontWeight: 'bold',
+  },
+}))
 
 export { useStyles, StyledTableRow, StyledTableCell }

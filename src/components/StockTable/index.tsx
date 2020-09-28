@@ -82,7 +82,16 @@ export const StockTable: React.FC<TableProps> = ({ stockData, stockTypes }) => {
 
               <StyledTableCell align="right">{row.lastPrice}</StyledTableCell>
 
-              <StyledTableCell align="right">
+              <StyledTableCell
+                align="right"
+                className={
+                  row.status === 1
+                    ? classes.raise
+                    : row.status === -1
+                    ? classes.fall
+                    : classes.normal
+                }
+              >
                 {row.currentPrice}
               </StyledTableCell>
 
