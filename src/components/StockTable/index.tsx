@@ -7,6 +7,7 @@ import {
   TableRow,
   Paper,
   IconButton,
+  Typography,
 } from '@material-ui/core'
 import TimelineIcon from '@material-ui/icons/Timeline'
 import { Sparkline } from '../Sparkline'
@@ -106,7 +107,11 @@ export const StockTable: React.FC<TableProps> = ({ stockData, stockTypes }) => {
               <StyledTableRow key={row.number}>
                 <StyledTableCell>{row.number}</StyledTableCell>
 
-                <StyledTableCell>{row.name}</StyledTableCell>
+                <StyledTableCell>
+                  <Typography className={classes.stockName}>
+                    {row.name}
+                  </Typography>
+                </StyledTableCell>
 
                 <StyledTableCell align="right">{row.lastPrice}</StyledTableCell>
 
@@ -124,7 +129,7 @@ export const StockTable: React.FC<TableProps> = ({ stockData, stockTypes }) => {
                 </StyledTableCell>
 
                 <StyledTableCell align="right">
-                  {moment(row.updateDate).format('YYYY-MM-DD hh:mm:ss')}
+                  {moment(row.updateDate).fromNow()}
                 </StyledTableCell>
 
                 <StyledTableCell align="right">

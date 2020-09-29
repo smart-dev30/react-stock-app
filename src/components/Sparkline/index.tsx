@@ -38,7 +38,9 @@ export const Sparkline: React.FC<SparklineProps> = ({
     >
       <Fade in={visible}>
         <div className={classes.paper}>
-          <h2 id="transition-modal-title">Sparklines of [{data.name}]</h2>
+          <h2 id="transition-modal-title">
+            Sparklines of [{data.name.toUpperCase()}]
+          </h2>
 
           <VictoryChart theme={VictoryTheme.material}>
             <VictoryLine data={chartData} />

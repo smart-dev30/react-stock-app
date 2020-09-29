@@ -50,6 +50,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   normal: {
     fontWeight: 'bold',
   },
+
+  stockName: {
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+  },
 }))
 
 export { useStyles, StyledTableRow, StyledTableCell }
