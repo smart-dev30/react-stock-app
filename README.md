@@ -6,6 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### Check the app from github page
+Open [Live](https://smart-dev30.github.io/react-stock-app/) to view it in the browser.
+
 ### `yarn start`
 
 Runs the app in the development mode.\
