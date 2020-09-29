@@ -35,7 +35,6 @@ function applicationState(state = initialState, action: ActionModel) {
     case ActionType.WEBSOCKET_RECEIVE:
       let { stockData, stockTypes } = state
       const { payload } = action
-      console.log(JSON.stringify(payload))
 
       payload.forEach((stock: any[]) => {
         const stockName = stock[0]
@@ -64,8 +63,6 @@ function applicationState(state = initialState, action: ActionModel) {
       })
 
       stockTypes = Object.keys(stockData)
-      console.log('updatedStockData', stockData)
-      console.log('stockTypes', stockTypes)
 
       return { ...state, stockData, stockTypes }
     default:

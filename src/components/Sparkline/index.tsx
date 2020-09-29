@@ -1,7 +1,6 @@
 import React from 'react'
 import { Modal, Backdrop, Fade } from '@material-ui/core'
-import { Sparklines, SparklinesLine, SparklinesSpots } from 'react-sparklines'
-
+import { VictoryChart, VictoryLine, VictoryTheme } from 'victory'
 import { ChartData } from '../StockTable'
 
 import useStyles from './styles'
@@ -18,6 +17,12 @@ export const Sparkline: React.FC<SparklineProps> = ({
   onCancel,
 }) => {
   const classes = useStyles()
+
+  const chartData = data.prices.map((price: number, index: number) => ({
+    x: index,
+    y: price,
+  }))
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -35,10 +40,9 @@ export const Sparkline: React.FC<SparklineProps> = ({
         <div className={classes.paper}>
           <h2 id="transition-modal-title">Sparklines of [{data.name}]</h2>
 
-          <Sparklines data={data.prices}>
-            <SparklinesLine color="blue" />
-            <SparklinesSpots />
-          </Sparklines>
+          <VictoryChart theme={VictoryTheme.material}>
+            <VictoryLine data={chartData} />
+          </VictoryChart>
         </div>
       </Fade>
     </Modal>

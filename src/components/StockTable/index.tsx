@@ -72,7 +72,6 @@ export const StockTable: React.FC<TableProps> = ({ stockData, stockTypes }) => {
   const rowData: StockInfo[] = stockTypes.map((type, index) =>
     createRow(index, type, stockData[type]),
   )
-  console.log(rowData)
 
   const handleToggleChart = (name: string | null) => () => {
     if (!name) {
